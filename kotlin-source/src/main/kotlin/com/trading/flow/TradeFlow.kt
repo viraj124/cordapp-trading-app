@@ -9,6 +9,7 @@ import com.trading.state.TradeState
 import net.corda.core.contracts.Command
 import net.corda.core.contracts.requireThat
 import net.corda.core.flows.*
+import net.corda.core.identity.CordaX500Name
 import net.corda.core.identity.Party
 import net.corda.core.transactions.SignedTransaction
 import net.corda.core.transactions.TransactionBuilder
@@ -122,9 +123,11 @@ object TradeFlow {
                 override fun checkTransaction(stx: SignedTransaction) = requireThat {
                     val output = stx.tx.outputs.single().data
                     val trade = output as TradeState
+                    val x500Name = CordaX500Name.parse("O=Regulator,L=Delhi,C=IN")
+                    val regulator = serviceHub.identityService.wellKnownPartyFromX500Name(x500Name)
                     "This must be an Trade transaction." using (output is TradeState)
-
-
+                    "This regulator cannot be initiating party." using (regulator != trade.initiatingParty)
+                    "This regulator cannot be initiating party." using (regulator != trade.counterParty)
                 }
             }
             return subFlow(signTransactionFlow)
