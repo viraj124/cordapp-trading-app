@@ -15,4 +15,5 @@
 .form-data{margin-top: 8px;}
 .form-label{padding-right: 0px !important;}
 .transactionDetail{ height:420px; overflow-x: hidden; overflow-y: auto; }
+.rows{ height:10px;}
 #ng-loading-overlay { font-size: 23px; font-weight: bold;}

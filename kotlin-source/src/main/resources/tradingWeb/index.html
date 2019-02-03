@@ -67,7 +67,7 @@ COMING WEEKS WE'LL WRITE A TUTORIAL ON HOW BEST TO DO THIS.
                             <h4 ng-class="(trade.tradeStatus=='ACCEPTED') ? 'trade-accepted' : 'trade-pending'">{{trade.tradeStatus}}</h4>
                         </div>
                         <div class="panel-body panel-border">
-                            <div class="tradeId"><h4>Trade ID - {{trade.linearId.id}}</h4></div>
+                            <div class="tradeId"><h4><a ng-click="demoApp.openTransactionDetailsModal(trade.linearId.id)" href="">Trade ID - {{trade.linearId.id}}</a></h4></div>
                             <div class="container">
                                 <div class="row">
                                     <div class="col-xs-7">
@@ -227,7 +227,7 @@ COMING WEEKS WE'LL WRITE A TUTORIAL ON HOW BEST TO DO THIS.
     <form>
         <div class="modal-body">
             <div class="transactionDetail">
-                <pre>{{modalInstance.transactionDetails  | json }}</pre>
+               <pre>{{modalInstance.transactionDetails | json}}</pre>
             </div>
         </div>
         <div class="modal-footer">
