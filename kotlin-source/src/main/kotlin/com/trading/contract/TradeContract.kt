@@ -44,7 +44,7 @@ class TradeContract : Contract {
                     "No inputs should be consumed when issuing an Trade." using (tx.inputs.isEmpty())
                     "Only one output state should be created." using (tx.outputs.size == 1)
                     val out = tx.outputsOfType<TradeState>().single()
-                    val amount = out.sellValue - (5/100) * out.sellValue;
+                    val amount = out.sellValue - (0.05 * out.sellValue)
                     val expectedSigners = listOf(out.initiatingParty.owningKey,out.counterParty.owningKey)
                     "The creating party and the counter party cannot be the same entity." using (out.initiatingParty != out.counterParty)
                     "All of the participants must be signers." using (command.signers.containsAll(expectedSigners))
@@ -53,7 +53,7 @@ class TradeContract : Contract {
                     "The sell currency and the buy currency cannot be the same entity." using (out.sellCurrency != out.buyCurrency)
                     "The Trade's sell value must be non-negative." using (out.sellValue > 0)
                     "The Trade's buy value must be non-negative." using (out.buyValue > 0)
-                    "The Trade's buy value must be eualto or more than 5% of Trade's sell value." using (out.buyValue >= amount)
+                    "The Trade's buy value must be equal to or more than 5% of Trade's sell value." using (out.buyValue > amount)
                     "The Trade's sell currency can't be empty." using (out.sellCurrency.isNotEmpty())
                     "The Trade's buy currency can't be empty." using (out.buyCurrency.isNotEmpty())
                 }
